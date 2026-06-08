@@ -1,6 +1,7 @@
 ## Mirko Casu
 
-Psychologist turned CS researcher, PhD student at the [University of Catania](https://www.unict.it/en) 🇮🇹 — I work on the intersection of AI and mental health, and on multimedia forensics.
+Psychologist turned CS researcher, PhD student at the [University of Catania](https://www.unict.it/en) 🇮🇹
+I work on the intersection of AI and mental health, and on multimedia forensics.
 
 Recently visited [EPFL](https://www.epfl.ch/labs/mints/) for six months. My papers sometimes end up in [parliamentary briefings](https://post.parliament.uk/research-briefings/post-pn-0737/).
 
