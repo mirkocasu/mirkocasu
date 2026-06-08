@@ -1,9 +1,8 @@
 ## Mirko Casu
 
-Psychologist turned CS researcher, PhD student at the [University of Catania](https://www.unict.it/en) 🇮🇹
-I work on the intersection of AI and mental health, and on multimedia forensics.
+Psychologist, CS PhD student at the [University of Catania](https://www.unict.it/en) 🇮🇹
 
-Recently visited [EPFL](https://www.epfl.ch/labs/mints/) for six months. My papers sometimes end up in [parliamentary briefings](https://post.parliament.uk/research-briefings/post-pn-0737/).
+I work on the intersection of AI and mental health, and on multimedia forensics.
 
 | Paper | Journal | What it's about |
 | ----- | ------- | --------------- |
@@ -12,4 +11,4 @@ Recently visited [EPFL](https://www.epfl.ch/labs/mints/) for six months. My pape
 | 🎭 [GenAI Mirage](https://doi.org/10.1016/j.fsidi.2024.301795) | FSIDI '24 | The cognitive trap behind deepfake detection |
 | 👁️ [A (Mid)Journey](https://doi.org/10.1155/hbe2/9977058) | HBET '24 | Can humans spot AI images? Spoiler: barely |
 
-mirko.casu [AT] phd.unict.it
+Reach me at mirko.casu [AT] phd.unict.it
