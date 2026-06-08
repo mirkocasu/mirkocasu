@@ -1,6 +1,6 @@
 ## Mirko Casu
 
-Psychologist, CS PhD student at the [University of Catania](https://www.unict.it/en) 🇮🇹
+Psychologist, CS PhD student at the [University of Catania](https://www.unict.it/en) 🇮🇹🌋
 
 I work on the intersection of AI and mental health, and on multimedia forensics.
 
