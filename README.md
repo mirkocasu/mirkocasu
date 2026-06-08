@@ -4,6 +4,8 @@ Psychologist, CS PhD student at the [University of Catania](https://www.unict.it
 
 I work on the intersection of AI and mental health, and on multimedia forensics.
 
+Bits of my work:
+
 | Paper | Journal | What it's about |
 | ----- | ------- | --------------- |
 | 🤖 [AI Chatbots for Mental Health](https://doi.org/10.3390/app14135889) | Appl. Sci. '24 | Do AI chatbots actually help? · cited in the UK Parliament POST |
