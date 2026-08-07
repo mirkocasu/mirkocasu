@@ -1,6 +1,6 @@
 ## Mirko Casu
 
-Psychologist, CS PhD student at the [University of Catania](https://www.unict.it/en) 🇮🇹🌋
+AI Researcher, PhD CS and [Licensed Psychologist](https://areariservata.psy.it/albo/iscritto/mirko_casu_218564) 🇮🇹🌋
 
 I work on the intersection of AI and mental health, and on multimedia forensics.
 
