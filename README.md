@@ -2,7 +2,7 @@
 
 AI Researcher, PhD CS and [Licensed Psychologist](https://areariservata.psy.it/albo/iscritto/mirko_casu_218564) 🇮🇹🌋
 
-I'm a PhD candidate at the [University of Catania](https://www.unict.it/en), in the [Image Processing Lab](https://iplab.dmi.unict.it/), and was recently a visiting researcher at [EPFL](https://www.epfl.ch/labs/mints/). I work where AI meets mental health, and on multimedia forensics: how to detect synthetic media, and why people fall for it.
+I'm a PhD candidate at the [University of Catania](https://www.unict.it/en), in the [Image Processing Lab](https://iplab.dmi.unict.it/), and was recently a visiting researcher at [EPFL](https://www.epfl.ch/labs/mints/). My research focuses on AI and mental health, and on AI and human safety: how language models and AI agents can support people's wellbeing, and how to protect people from their risks.
 
 [![Website](https://img.shields.io/badge/Website-mirkocasu.github.io-0B6E99?style=flat-square)](https://mirkocasu.github.io/)
 [![Google Scholar](https://img.shields.io/badge/Google_Scholar-Profile-4285F4?style=flat-square&logo=googlescholar&logoColor=white)](https://scholar.google.com/citations?user=zpZZ3X4AAAAJ)
