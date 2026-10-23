@@ -13,13 +13,12 @@ I'm a PhD candidate at the [University of Catania](https://www.unict.it/en), in 
 
 | Paper | Venue | What it's about |
 | ----- | ----- | --------------- |
-| 🎬 [SynthForensics](https://arxiv.org/abs/2602.04939) | NeurIPS '26 · E&D Track | A benchmark of 6,815 people-centric videos from 5 open-source text-to-video models; detectors lose 29 AUC points on average |
-| 🧩 [On-device ASD screening](https://doi.org/10.1109/OJCS.2026.3738736) | IEEE OJCS '26 | Autism screening from a child's gaze on single images, running offline in an [Android app](https://github.com/spatam/ASD-Screening-Android-APP) |
-| 🤖 [AI Chatbots for Mental Health](https://doi.org/10.3390/app14135889) | Appl. Sci. '24 | Do AI chatbots actually help? · cited in the UK Parliament POST |
-| 🌿 [Digital AI & Eating Disorders](https://doi.org/10.1016/j.chbr.2026.100963) | CHBR '26 | AI for prevention, screening & treatment of eating disorders |
-| 🎭 [GenAI Mirage](https://doi.org/10.1016/j.fsidi.2024.301795) | FSIDI '24 | The cognitive trap behind deepfake detection |
-| 👁️ [A (Mid)Journey](https://doi.org/10.1155/hbe2/9977058) | HBET '25 | Can humans spot AI images? Spoiler: barely · [data](https://github.com/mirkocasu/a-mid-journey-through-reality) |
-| 💳 [Fraud is not just rarity](https://doi.org/10.1016/j.knosys.2026.116594) | KBS '26 | Causal prototype attention for realistic synthetic oversampling in fraud detection |
+| 🤖 [AI Chatbots for Mental Health](https://doi.org/10.3390/app14135889) | Appl. Sci. '24 | Do AI chatbots actually help? · 300+ citations, cited by the [UK Parliament POST](https://post.parliament.uk/research-briefings/post-pn-0737/) |
+| 🎬 [SynthForensics](https://arxiv.org/abs/2602.04939) | NeurIPS '26 · E&D Track | A benchmark of 6,815 people-centric synthetic videos; detectors lose 29 AUC points on average |
+| 🎭 [GenAI Mirage](https://doi.org/10.1016/j.fsidi.2024.301795) | FSIDI '24 | The cognitive trap behind deepfake detection · mentioned by [INTERPOL](https://www.interpol.int/How-we-work/Innovation/Projects/Project-SynthWave) |
+| 🧠 [Substance Use & Mental Health](https://doi.org/10.3390/psychoactives3020013) | Psychoactives '24 | Biological, social and psychological roots of addiction and its comorbidities · 100+ citations |
+
+800+ citations on [Google Scholar](https://scholar.google.com/citations?user=zpZZ3X4AAAAJ), h-index 11.
 
 I co-chaired the [Deepfake Forensics Workshop](https://doi.org/10.1145/3746027.3762241) at ACM Multimedia 2025 and served on the dataset committee of the [AADD-2025 challenge](https://github.com/mfs-iplab/aadd-2025). The full list of papers is on [my website](https://mirkocasu.github.io/publications/).
 
