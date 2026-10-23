@@ -13,10 +13,10 @@ I'm a PhD candidate at the [University of Catania](https://www.unict.it/en), in 
 
 | Paper | Venue | What it's about |
 | ----- | ----- | --------------- |
-| 🤖 [AI Chatbots for Mental Health](https://doi.org/10.3390/app14135889) | Appl. Sci. '24 | Do AI chatbots actually help? · cited by the [UK Parliament POST](https://post.parliament.uk/research-briefings/post-pn-0737/) |
 | 🎬 [SynthForensics](https://arxiv.org/abs/2602.04939) | NeurIPS '26 · E&D Track | A benchmark of 6,815 people-centric synthetic videos; detectors lose 29 AUC points on average |
-| 🎭 [GenAI Mirage](https://doi.org/10.1016/j.fsidi.2024.301795) | FSIDI '24 | The cognitive trap behind deepfake detection · mentioned by [INTERPOL](https://www.interpol.int/How-we-work/Innovation/Projects/Project-SynthWave) |
 | 🖼️ [WILD](https://doi.org/10.1109/IJCNN64981.2025.11227289) | IJCNN '25 | Which generator made this image? A dataset of 20 generators, 10 of them unseen, for in-the-wild attribution · [data](https://www.kaggle.com/datasets/pietrob92/wild-in-the-wild-image-linkage-dataset) |
+| 🤖 [AI Chatbots for Mental Health](https://doi.org/10.3390/app14135889) | Appl. Sci. '24 | Do AI chatbots actually help? · cited by the [UK Parliament POST](https://post.parliament.uk/research-briefings/post-pn-0737/) |
+| 🎭 [GenAI Mirage](https://doi.org/10.1016/j.fsidi.2024.301795) | FSIDI '24 | The cognitive trap behind deepfake detection · mentioned by [INTERPOL](https://www.interpol.int/How-we-work/Innovation/Projects/Project-SynthWave) |
 
 I co-chaired the [Deepfake Forensics Workshop](https://doi.org/10.1145/3746027.3762241) at ACM Multimedia 2025 and served on the dataset committee of the [AADD-2025 challenge](https://github.com/mfs-iplab/aadd-2025). The full list of papers is on [my website](https://mirkocasu.github.io/publications/).
 
