@@ -20,4 +20,4 @@ I'm a PhD candidate at the [University of Catania](https://www.unict.it/en), in 
 
 I co-chaired the [Deepfake Forensics Workshop](https://doi.org/10.1145/3746027.3762241) at ACM Multimedia 2025 and served on the dataset committee of the [AADD-2025 challenge](https://github.com/mfs-iplab/aadd-2025). The full list of papers is on [my website](https://mirkocasu.github.io/publications/).
 
-Reach me at mirko.casu [AT] phd.unict.it
+Reach me at mirko.casu [AT] live.it
