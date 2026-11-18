@@ -2,7 +2,7 @@
   <img src="assets/banner-1a7b7c02.gif" alt="A shiny Umbreon, pixel art" width="221" height="301" />
 </p>
 
-# Hi, I'm Mirko 👋
+# Hi, I'm Mirko 👋🏼
 
 🧠 AI researcher · PhD in Computer Science at the [University of Catania](https://www.unict.it/en) · [Licensed psychologist](https://areariservata.psy.it/albo/iscritto/mirko_casu_218564) · 📍 Catania, Italy 🌋
 
