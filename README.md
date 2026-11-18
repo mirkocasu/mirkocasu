@@ -13,7 +13,7 @@
 ![Claude](https://img.shields.io/badge/-Claude-D97757?style=flat-square&logo=claude&logoColor=white)
 ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=mirkocasu.mirkocasu)
 
-I study AI systems that observe, imitate or judge human behaviour. I specialise in language models and AI agents, and what they mean for mental health and human safety: how these systems can support people's wellbeing, and how they can put them at risk. I'm a member of [IPLab](https://iplab.dmi.unict.it/) and was recently a visiting researcher at [EPFL](https://www.epfl.ch/labs/mints/).
+I study AI systems that observe, imitate or judge human behaviour, especially language models and AI agents, and how they can support or harm mental health and human safety. Member of [IPLab](https://iplab.dmi.unict.it/), recently a visiting researcher at [EPFL](https://www.epfl.ch/labs/mints/).
 
 <p align="center"><img src="assets/card-identity-a27ff1a1.svg" alt="Mirko Casu: AI researcher and clinical psychologist, PhD in Computer Science at the University of Catania" width="760" /></p>
 
