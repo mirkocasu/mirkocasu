@@ -7,12 +7,9 @@
 🧠 AI researcher · PhD in Computer Science at the [University of Catania](https://www.unict.it/en) · [Licensed psychologist](https://areariservata.psy.it/albo/iscritto/mirko_casu_218564) · 📍 Catania, Italy 🌋
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![PyTorch](https://img.shields.io/badge/-PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
 ![Hugging Face](https://img.shields.io/badge/-Hugging_Face-FFD21E?style=flat-square&logo=huggingface&logoColor=black)
 ![MLX](https://img.shields.io/badge/-MLX-000000?style=flat-square&logo=apple&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/-scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white)
-![ONNX Runtime](https://img.shields.io/badge/-ONNX_Runtime-005CED?style=flat-square&logo=onnx&logoColor=white)
-![Android](https://img.shields.io/badge/-Android-34A853?style=flat-square&logo=android&logoColor=white)
+![Claude](https://img.shields.io/badge/-Claude-D97757?style=flat-square&logo=claude&logoColor=white)
 ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=mirkocasu.mirkocasu)
 
 I study AI systems that observe, imitate or judge human behaviour. I specialise in language models and AI agents, and what they mean for mental health and human safety: how these systems can support people's wellbeing, and how they can put them at risk. I'm a member of [IPLab](https://iplab.dmi.unict.it/) and was recently a visiting researcher at [EPFL](https://www.epfl.ch/labs/mints/).
