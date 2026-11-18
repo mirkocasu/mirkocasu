@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="262" viewBox="0 0 760 262" role="img" aria-label="SynthForensics: a benchmark of 6,815 synthetic videos; detectors lose 29 AUC points on average">
+<title>SynthForensics: a benchmark of 6,815 synthetic videos; detectors lose 29 AUC points on average</title>
+<defs>
+  <linearGradient id="g" gradientUnits="userSpaceOnUse" x1="0" y1="4" x2="0" y2="258">
+    <stop offset="0%" stop-color="#a371f7"/><stop offset="100%" stop-color="#6e40c9"/>
+  </linearGradient>
+</defs>
+<style>
+  text { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace; white-space: pre; font-size: 12.5px; }
+  .a { fill: url(#g); font-size: 6.6px; }
+  .h { fill: #8250df; font-weight: 700; }
+  .r { stroke: #d1d9e0; }
+  .k { fill: #59636e; }
+  .d { fill: #c4ccd4; }
+  .t { fill: #1f2328; }
+  .v { fill: #8250df; }
+  @media (prefers-color-scheme: dark) {
+    .h { fill: #a371f7; }
+    .r { stroke: #3d444d; }
+    .k { fill: #9198a1; }
+    .d { fill: #3d444d; }
+    .t { fill: #e6edf3; }
+    .v { fill: #a371f7; }
+  }
+</style>
+<g transform="translate(0 61.6)"><text x="304.5" y="22" class="h">synthforensics@neurips</text>
+<line x1="477.6" y1="18" x2="756" y2="18" class="r"/>
+<text x="304.5" y="43"><tspan class="k">. What: </tspan><tspan class="d">............ </tspan><tspan class="t">benchmark for synthetic-video detection</tspan></text>
+<text x="304.5" y="64"><tspan class="k">. Videos: </tspan><tspan class="d">.................. </tspan><tspan class="v">6,815 generated, people-centric</tspan></text>
+<text x="304.5" y="85"><tspan class="k">. Finding: </tspan><tspan class="d">......... </tspan><tspan class="v">detectors lose 29 AUC points on average</tspan></text>
+<text x="304.5" y="106"><tspan class="k">. Venue: </tspan><tspan class="d">............. </tspan><tspan class="t">NeurIPS 2026 · Evaluations &amp; Datasets</tspan></text>
+<text x="304.5" y="127"><tspan class="k">. Paper: </tspan><tspan class="d">.................................. </tspan><tspan class="v">arXiv:2602.04939</tspan></text></g>
+<text x="25.0" y="10.6" class="a"></text>
+<text x="25.0" y="18.5" class="a"></text>
+<text x="25.0" y="26.5" class="a"></text>
+<text x="25.0" y="34.4" class="a"></text>
+<text x="25.0" y="42.4" class="a">     ;++++++++++++++++++++++++++++++++++++++++++++++++;.</text>
+<text x="25.0" y="50.3" class="a">   ;$&amp;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&amp;$+</text>
+<text x="25.0" y="58.3" class="a">   $$x                                                =$$</text>
+<text x="25.0" y="66.2" class="a">   $$=  $$$+ :$$$; ;$$$. =$$$  X$$x  $$$+ :$$$; ;$$$. +$$.</text>
+<text x="25.0" y="74.2" class="a">   $$=  ===: .===. :===  ;==+  +==;  ===: .===. :===  +$$.</text>
+<text x="25.0" y="82.1" class="a">   $$=                                                +$$.</text>
+<text x="25.0" y="90.1" class="a">   $$=                                                +$$.</text>
+<text x="25.0" y="98.0" class="a">   $$=                   ;                            +$$.</text>
+<text x="25.0" y="106.0" class="a">   $$=                  .$$x;                         +$$.</text>
+<text x="25.0" y="113.9" class="a">   $$=                  .$$$$$x;                      +$$.</text>
+<text x="25.0" y="121.8" class="a">   $$=                  .$$$$$$$$x;                   +$$.</text>
+<text x="25.0" y="129.8" class="a">   $$=                  .$$$$$$$$$$$x;                +$$.</text>
+<text x="25.0" y="137.7" class="a">   $$=                  .$$$$$$$$$$$x;.               +$$.</text>
+<text x="25.0" y="145.7" class="a">   $$=                  .$$$$$$$$x;.                  +$$.</text>
+<text x="25.0" y="153.6" class="a">   XX+                  .XXXXXx;.                     +XX.</text>
+<text x="25.0" y="161.6" class="a">   XX+                  .XXx;.                        +XX.</text>
+<text x="25.0" y="169.5" class="a">   XX+                   ;.                           +XX</text>
+<text x="25.0" y="177.5" class="a">   XX+                                                +XX</text>
+<text x="25.0" y="185.4" class="a">   XX+                                                +XX</text>
+<text x="25.0" y="193.4" class="a">   XX+  +++:  +++. .+++  :++;  ;++:  +++:  +++. .+++  +XX</text>
+<text x="25.0" y="201.3" class="a">   XX+  XXX; .XXX: ;XXX  +XXx  xXX=  XXX; .XXX: ;XXX  ;XX</text>
+<text x="25.0" y="209.3" class="a">   XX+                                                +XX</text>
+<text x="25.0" y="217.2" class="a">   ;XXx===============================================XX+</text>
+<text x="25.0" y="225.2" class="a">     ;++++++++++++++++++++++++++++++++++++++++++++++++;.</text>
+<text x="25.0" y="233.1" class="a"></text>
+<text x="25.0" y="241.0" class="a"></text>
+<text x="25.0" y="249.0" class="a"></text>
+<text x="25.0" y="256.9" class="a"></text>
+</svg>
