@@ -4,7 +4,7 @@
 
 # Hi, I'm Mirko 👋🏼
 
-🧠 AI researcher · PhD in Computer Science at the [University of Catania](https://www.unict.it/en) · [Licensed psychologist](https://areariservata.psy.it/albo/iscritto/mirko_casu_218564) · 📍 Italy
+🧠 AI researcher · PhD in Computer Science at the [University of Catania](https://www.unict.it/en) · [Psychologist](https://areariservata.psy.it/albo/iscritto/mirko_casu_218564) · 📍 Italy
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/-PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
