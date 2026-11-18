@@ -3,11 +3,14 @@
 
 Usage: python3 -I scripts/build_cards.py [--portrait IMAGE] [--unown DIR]
 
-Always writes assets/card-identity.svg. Options:
+Always rebuilds the identity card. Options:
   --portrait IMAGE  rebuild the ASCII portrait cached in assets/portrait.txt.
-  --unown DIR       rebuild assets/unown.gif from the Unown sprites 201-m/i/r/k/o.gif
-                    in DIR. The sprites are not kept in this repo; without this
-                    option the existing GIF is left as it is.
+  --unown DIR       rebuild the Unown banner from the sprites 201-m/i/r/k/o.gif in DIR.
+                    The sprites are not kept in this repo; without this option the
+                    published GIF is left as it is.
+
+Images are built in assets/build/ (not committed) and published as
+assets/<name>-<hash>.<ext>; the README links are updated to the new names.
 
 Every image has a transparent background, so it works with GitHub's light and dark themes.
 """
@@ -20,6 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
+BUILD = ASSETS / "build"  # unhashed outputs, kept so the GIF need not be rebuilt each run
 
 BLUE = "#2f8fd0"
 TEAL = "#1fa3b0"
@@ -172,16 +176,24 @@ def identity(portrait):
 """
 
 
-def bust_cache():
-    """Point the README at assets/x?v=<content hash>: GitHub's CDN caches each URL for minutes."""
+def publish(name):
+    """Copy assets/build/<name> to assets/<stem>-<hash><ext> and point the README at it.
+
+    GitHub's CDN caches each image URL for minutes, and its /raw/ redirect drops query
+    strings, so a new file name is the only reliable way to show a new version at once.
+    """
+    src = BUILD / name
+    stem, ext = src.stem, src.suffix
+    data = src.read_bytes()
+    final = f"{stem}-{hashlib.sha256(data).hexdigest()[:8]}{ext}"
+    for old in ASSETS.glob(f"{stem}-*{ext}"):
+        if old.name != final:
+            old.unlink()
+    (ASSETS / final).write_bytes(data)
     readme = ROOT / "README.md"
-    text = readme.read_text()
-
-    def repl(m):
-        digest = hashlib.sha256((ASSETS / m.group(1)).read_bytes()).hexdigest()[:8]
-        return f'src="assets/{m.group(1)}?v={digest}"'
-
-    readme.write_text(re.sub(r'src="assets/([\w.-]+)(?:\?v=\w+)?"', repl, text))
+    pattern = rf'src="assets/{re.escape(stem)}(?:-[0-9a-f]{{8}})?{re.escape(ext)}(?:\?v=\w+)?"'
+    readme.write_text(re.sub(pattern, f'src="assets/{final}"', readme.read_text()))
+    return final
 
 
 def main():
@@ -196,12 +208,12 @@ def main():
         cache.write_text("\n".join(portrait) + "\n")
     else:
         portrait = cache.read_text().splitlines()
+    BUILD.mkdir(exist_ok=True)
     if args.unown:
-        unown_gif(args.unown, ASSETS / "unown.gif")
-    (ASSETS / "card-identity.svg").write_text(identity(portrait))
-    bust_cache()
-    print("wrote", ", ".join(sorted(p.name for p in ASSETS.iterdir() if p.suffix in {".svg", ".gif"})))
-
+        unown_gif(args.unown, BUILD / "unown.gif")
+    (BUILD / "card-identity.svg").write_text(identity(portrait))
+    names = [n for n in ("unown.gif", "card-identity.svg") if (BUILD / n).exists()]
+    print("wrote", ", ".join(publish(n) for n in names))
 
 if __name__ == "__main__":
     main()
