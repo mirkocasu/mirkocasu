@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="assets/unown-7f156d6c.gif" alt="Five floating Unown spelling MIRKO" width="509" height="264" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark-997eb7d3.gif" />
+    <img src="assets/banner-light-1a7b7c02.gif" alt="A shiny Umbreon, pixel art" width="227" height="307" />
+  </picture>
 </p>
 
 # Hi, I'm Mirko 👋

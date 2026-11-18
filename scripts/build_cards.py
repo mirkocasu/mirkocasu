@@ -1,23 +1,24 @@
 #!/usr/bin/env python3
 """Build the images for the GitHub profile README.
 
-Usage: python3 -I scripts/build_cards.py [--portrait IMAGE] [--unown DIR]
+Usage: python3 -I scripts/build_cards.py [--portrait IMAGE] [--sprite GIF]
 
 Always rebuilds the identity card. Options:
   --portrait IMAGE  rebuild the ASCII portrait cached in assets/portrait.txt.
-  --unown DIR       rebuild the Unown banner from the sprites 201-m/i/r/k/o.gif in DIR.
-                    The sprites are not kept in this repo; without this option the
-                    published GIF is left as it is.
+  --sprite GIF      rebuild the banner from an animated sprite GIF (now the shiny
+                    Umbreon, 197.gif). It writes two versions: banner-dark.gif with a
+                    grey outline, so the black body shows on GitHub's dark theme, and
+                    banner-light.gif without it. The sprite is not kept in this repo;
+                    without this option the published banner is left as it is.
 
 Images are built in assets/build/ (not committed) and published as
 assets/<name>-<hash>.<ext>; the README links are updated to the new names.
 
-Every image has a transparent background, so it works with GitHub's light and dark themes.
+Every image has a transparent background.
 """
 import argparse
 import hashlib
 import html
-import math
 import re
 from pathlib import Path
 
@@ -31,78 +32,42 @@ LAVA = "#ef7d32"
 FONT = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace"
 CHAR_W = 0.602  # monospace advance width, in em
 
-# Unown colours, one per letter of MIRKO; readable on white and on GitHub's dark grey.
-UNOWN = "mirko"
-UNOWN_RGB = [(47, 143, 208), (31, 163, 176), (59, 179, 122), (224, 165, 38), (239, 125, 50)]
-
-
 def esc(s):
     return html.escape(s, quote=False)
 
 
-# ---------------------------------------------------------------- Unown banner
+# ---------------------------------------------------------------- sprite banner
 
 
-def _mix(c, t, to):
-    return tuple(round(a + (b - a) * t) for a, b in zip(c, to))
+def sprite_banner(src, out, scale=3, vpad=80, hpad=40, outline=None):
+    """Upscale an animated sprite with empty space around it, keeping its own frame timing.
 
+    outline: an RGB colour for a one-pixel ring around the silhouette, or None.
+    """
+    from PIL import Image, ImageFilter, ImageSequence
 
-def _unown_frames(path, rgb, scale):
-    """Recoloured, cropped and upscaled frames of one sprite, as (RGBA image, seconds)."""
-    from PIL import Image, ImageSequence
-
-    # GIF palette: 0 transparent, 1 outline, 2 dark shade, 3 light shade, 4 white
-    pal = {
-        1: rgb + (255,),
-        2: _mix(rgb, 0.45, (20, 24, 30)) + (255,),
-        3: _mix(rgb, 0.4, (255, 255, 255)) + (255,),
-        4: (255, 255, 255, 255),
-    }
     frames = []
-    for f in ImageSequence.Iterator(Image.open(path)):
-        p = f if f.mode == "P" else f.convert("P")
-        im = Image.new("RGBA", p.size, (0, 0, 0, 0))
-        src, dst = p.load(), im.load()
-        for y in range(p.size[1]):
-            for x in range(p.size[0]):
-                if src[x, y] in pal:
-                    dst[x, y] = pal[src[x, y]]
-        frames.append((im, (f.info.get("duration") or 100) / 1000))
+    for f in ImageSequence.Iterator(Image.open(src)):
+        im = f.convert("RGBA")
+        if outline:
+            ring = Image.new("RGBA", im.size, outline + (255,))
+            ring.putalpha(im.getchannel("A").filter(ImageFilter.MaxFilter(3)))
+            ring.alpha_composite(im)
+            im = ring
+        frames.append((im, f.info.get("duration") or 100))
     boxes = [im.getbbox() for im, _ in frames]
     box = (min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes))
     size = ((box[2] - box[0]) * scale, (box[3] - box[1]) * scale)
-    return [(im.crop(box).resize(size, Image.NEAREST), d) for im, d in frames]
-
-
-def unown_gif(sprite_dir, out, scale=3, gap=30, bob=8, fps=20, loop=4.8, vpad=80):
-    """MIRKO in floating Unown: each letter bobs in a wave and plays its own sprite animation."""
-    from PIL import Image
-
-    letters = [_unown_frames(Path(sprite_dir) / f"201-{ch}.gif", rgb, scale) for ch, rgb in zip(UNOWN, UNOWN_RGB)]
-    pad = 4
-    W = sum(f[0][0].width for f in letters) + gap * (len(letters) - 1) + 2 * pad
-    # vpad: empty space above and below, so the banner breathes like a hero image
-    H = max(f[0][0].height for f in letters) + bob + 2 * vpad
-    frames = []
-    for k in range(int(loop * fps)):
-        t = k / fps
-        canvas = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        x = pad
-        for i, sprite in enumerate(letters):
-            # the sprite animation starts at a staggered offset, then holds its first frame
-            lt, im, acc = t - 0.3 - 0.45 * i, sprite[0][0], 0.0
-            if lt >= 0:
-                for fr, d in sprite:
-                    if lt < acc + d:
-                        im = fr
-                        break
-                    acc += d
-            dy = bob * (1 - math.cos(2 * math.pi * (t / (loop / 2) - i / len(letters)))) / 2
-            y = vpad + (H - 2 * vpad - bob - im.height) // 2 + round(bob - dy)
-            canvas.alpha_composite(im, (x, y))
-            x += im.width + gap
-        frames.append(canvas)
-    frames[0].save(out, save_all=True, append_images=frames[1:], duration=1000 // fps, loop=0, disposal=2, optimize=True)
+    canvas_size = (size[0] + 2 * hpad, size[1] + 2 * vpad)
+    images = []
+    for im, _ in frames:
+        c = Image.new("RGBA", canvas_size, (0, 0, 0, 0))
+        c.alpha_composite(im.crop(box).resize(size, Image.NEAREST), (hpad, vpad))
+        images.append(c)
+    images[0].save(
+        out, save_all=True, append_images=images[1:], duration=[d for _, d in frames], loop=0, disposal=2, optimize=True
+    )
+    return canvas_size
 
 
 # ---------------------------------------------------------------- identity card
@@ -191,15 +156,15 @@ def publish(name):
             old.unlink()
     (ASSETS / final).write_bytes(data)
     readme = ROOT / "README.md"
-    pattern = rf'src="assets/{re.escape(stem)}(?:-[0-9a-f]{{8}})?{re.escape(ext)}(?:\?v=\w+)?"'
-    readme.write_text(re.sub(pattern, f'src="assets/{final}"', readme.read_text()))
+    pattern = rf'(src|srcset)="assets/{re.escape(stem)}(?:-[0-9a-f]{{8}})?{re.escape(ext)}"'
+    readme.write_text(re.sub(pattern, rf'\1="assets/{final}"', readme.read_text()))
     return final
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--portrait")
-    ap.add_argument("--unown")
+    ap.add_argument("--sprite")
     args = ap.parse_args()
     ASSETS.mkdir(exist_ok=True)
     cache = ASSETS / "portrait.txt"
@@ -209,11 +174,13 @@ def main():
     else:
         portrait = cache.read_text().splitlines()
     BUILD.mkdir(exist_ok=True)
-    if args.unown:
-        unown_gif(args.unown, BUILD / "unown.gif")
+    if args.sprite:
+        print("banner", sprite_banner(args.sprite, BUILD / "banner-dark.gif", outline=(110, 118, 129)))
+        sprite_banner(args.sprite, BUILD / "banner-light.gif")
     (BUILD / "card-identity.svg").write_text(identity(portrait))
-    names = [n for n in ("unown.gif", "card-identity.svg") if (BUILD / n).exists()]
+    names = [n for n in ("banner-dark.gif", "banner-light.gif", "card-identity.svg") if (BUILD / n).exists()]
     print("wrote", ", ".join(publish(n) for n in names))
+
 
 if __name__ == "__main__":
     main()
