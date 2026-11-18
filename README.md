@@ -13,15 +13,15 @@
 ![Claude](https://img.shields.io/badge/-Claude-D97757?style=flat-square&logo=claude&logoColor=white)
 ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=mirkocasu.mirkocasu)
 
-I study AI systems that observe, imitate or judge human behaviour, especially language models and AI agents, and how they can support or harm mental health and human safety. Member of [IPLab](https://iplab.dmi.unict.it/), recently a visiting researcher at [EPFL](https://www.epfl.ch/labs/mints/).
+I study AI systems that observe, imitate, or judge human behaviour, mainly language models and AI agents, and how they can help or harm mental health and safety. I'm a member of [IPLab](https://iplab.dmi.unict.it/) and was a visiting researcher at [EPFL](https://www.epfl.ch/labs/mints/).
 
 <p align="center"><img src="assets/card-identity-698aab66.svg" alt="ASCII portrait of Mirko Casu beside a list: AI researcher and licensed psychologist, PhD in Computer Science at the University of Catania, IPLab, visiting researcher at EPFL MINTS (2025–26), focus on LLMs and AI agents for mental health, based in Italy" width="760" /></p>
 
-## What I'm working on
+## Research
 
 ### SynthForensics
 
-How well do deepfake detectors cope with today's people-centric synthetic videos? Not well.
+A benchmark that tests deepfake detectors on synthetic videos of people.
 
 <p align="center"><img src="assets/card-synthforensics-c4e1b486.svg" alt="SynthForensics: a benchmark of 6,815 people-centric synthetic videos; detectors lose 29 AUC points on average; NeurIPS 2026, Evaluations and Datasets Track; arXiv 2602.04939" width="760" /></p>
 
@@ -29,7 +29,7 @@ How well do deepfake detectors cope with today's people-centric synthetic videos
 
 ### AI chatbots for mental health
 
-Do AI chatbots actually help people's mental health?
+A scoping review of the evidence on AI chatbots for mental health.
 
 <p align="center"><img src="assets/card-chatbots-e3a89bfa.svg" alt="AI chatbots for mental health: a scoping review of their effectiveness, feasibility and applications; cited by the UK Parliament POST, POSTnote 737; Applied Sciences, 2024" width="760" /></p>
 
@@ -37,23 +37,21 @@ Do AI chatbots actually help people's mental health?
 
 ### Deepfake forensics
 
-Why people and detectors fall for synthetic media, and how to build better benchmarks and challenges for it.
+Why people and detectors mistake synthetic media for real, and the benchmarks and challenges that test them.
 
 <p align="center"><img src="assets/card-deepfakes-4fb8d92c.svg" alt="Deepfake forensics: GenAI Mirage, the impostor bias in deepfake detection (FSIDI 2024), mentioned by INTERPOL; co-chair of the DFF '25 workshop at ACM Multimedia; dataset committee of the AADD-2025 challenge" width="760" /></p>
 
 <p align="center"><a href="https://doi.org/10.1016/j.fsidi.2024.301795"><img src="https://img.shields.io/badge/Elsevier-GenAI_Mirage-FF6C00?style=flat-square&logo=elsevier&logoColor=white" alt="GenAI Mirage paper" /></a> <a href="https://www.interpol.int/How-we-work/Innovation/Projects/Project-SynthWave"><img src="https://img.shields.io/badge/mentioned_by-INTERPOL-004373?style=flat-square" alt="Mentioned by INTERPOL" /></a> <a href="https://doi.org/10.1145/3746027.3762241"><img src="https://img.shields.io/badge/ACM-DFF_'25_workshop-0085CA?style=flat-square&logo=acm&logoColor=white" alt="DFF '25 workshop" /></a> <a href="https://github.com/mfs-iplab/aadd-2025"><img src="https://img.shields.io/badge/GitHub-AADD--2025-181717?style=flat-square&logo=github&logoColor=white" alt="AADD-2025 challenge" /></a></p>
 
-Also: [on-device autism screening](https://doi.org/10.1109/OJCS.2026.3738736) from children's gaze (IEEE OJCS '26, [app](https://github.com/spatam/ASD-Screening-Android-APP)) and [smoking detection and cessation](https://doi.org/10.1109/JBHI.2025.3549255) with wearables (IEEE JBHI '25). The full list is on [my website](https://mirkocasu.github.io/publications/).
-
-<!-- DRAFT: written from what is already public on the website. Edit freely. -->
+I also work on [on-device autism screening from children's gaze](https://doi.org/10.1109/OJCS.2026.3738736) (IEEE OJCS, 2026), with an [Android app](https://github.com/spatam/ASD-Screening-Android-APP), and on [smoking detection with wearable sensors](https://doi.org/10.1109/JBHI.2025.3549255) (IEEE JBHI, 2025). For the full list, see [my publications](https://mirkocasu.github.io/publications/).
 
 ## How I work
 
-- Psychologist first, computer scientist second: I look at what AI systems do to people, not only at what they score.
-- Evidence over hype: benchmarks, scoping reviews and controlled studies with real participants.
-- Models that run where people are: distilled and quantised to work offline, on a phone or a laptop.
-- Open by default: datasets, challenges and apps go public when they can.
-- Catania, Sicily. Photography and gaming when I'm off.
+- Psychology shapes my questions: I measure what AI systems do to people, not only how they score.
+- Claims need evidence, so I use benchmarks, scoping reviews, and studies with participants.
+- I distil and quantise models so that they run offline on a phone or a laptop.
+- Datasets, challenges, and apps go public whenever possible.
+- Off work: photography and video games.
 
 ## Connect
 
@@ -63,12 +61,4 @@ Also: [on-device autism screening](https://doi.org/10.1109/OJCS.2026.3738736) fr
 [![LinkedIn](https://img.shields.io/badge/m1rkocasu-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/m1rkocasu)
 [![Hugging Face](https://img.shields.io/badge/m1rkocasu-FFD21E?style=flat-square&logo=huggingface&logoColor=black)](https://huggingface.co/m1rkocasu)
 
-Reach me at mirko.casu [AT] live.it
-
----
-
-### Philosophy
-
-<!-- PLACEHOLDER: replace with your own motto and one or two lines about it. -->
-
-> _Your motto here._
+Email: mirko.casu [AT] live.it
