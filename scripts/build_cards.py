@@ -104,7 +104,7 @@ def identity(portrait):
         ("lab", "IPLab · visiting EPFL MINTS (2025–26)"),
         ("focus", "LLMs & AI agents → mental health,"),
         (None, "human safety, synthetic media"),
-        ("stack", "Python · PyTorch · Hugging Face · MLX"),
+        ("stack", "Python · PyTorch · Hugging Face · MLX · Claude"),
         ("speaks", "Italian · English · French"),
         ("off", "photography · gaming"),
     ]
