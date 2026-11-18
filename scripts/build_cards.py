@@ -6,10 +6,9 @@ Usage: python3 -I scripts/build_cards.py [--portrait IMAGE] [--sprite GIF]
 Always rebuilds the identity card. Options:
   --portrait IMAGE  rebuild the ASCII portrait cached in assets/portrait.txt.
   --sprite GIF      rebuild the banner from an animated sprite GIF (now the shiny
-                    Umbreon, 197.gif). It writes two versions: banner-dark.gif with a
-                    grey outline, so the black body shows on GitHub's dark theme, and
-                    banner-light.gif without it. The sprite is not kept in this repo;
-                    without this option the published banner is left as it is.
+                    Umbreon, 197.gif), with its original colours and no outline. The
+                    sprite is not kept in this repo; without this option the published
+                    banner is left as it is.
 
 Images are built in assets/build/ (not committed) and published as
 assets/<name>-<hash>.<ext>; the README links are updated to the new names.
@@ -175,10 +174,9 @@ def main():
         portrait = cache.read_text().splitlines()
     BUILD.mkdir(exist_ok=True)
     if args.sprite:
-        print("banner", sprite_banner(args.sprite, BUILD / "banner-dark.gif", outline=(110, 118, 129)))
-        sprite_banner(args.sprite, BUILD / "banner-light.gif")
+        sprite_banner(args.sprite, BUILD / "banner.gif")
     (BUILD / "card-identity.svg").write_text(identity(portrait))
-    names = [n for n in ("banner-dark.gif", "banner-light.gif", "card-identity.svg") if (BUILD / n).exists()]
+    names = [n for n in ("banner.gif", "card-identity.svg") if (BUILD / n).exists()]
     print("wrote", ", ".join(publish(n) for n in names))
 
 
