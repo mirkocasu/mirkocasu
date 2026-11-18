@@ -126,7 +126,7 @@ FACTS = [
     ("Cited.by", "UK Parliament POST · INTERPOL", True),
     ("Open.Source", "datasets · challenges · apps", False),
     ("Stack", "Python · PyTorch · Hugging Face · MLX · Claude", False),
-    ("Languages", "Italian · English · French", False),
+    ("Languages", "Italian · English", False),
     ("Location", "Italy", False),
     ("Off", "photography · gaming", False),
 ]
