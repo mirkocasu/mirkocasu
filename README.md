@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/unown.gif" alt="Five floating Unown spelling MIRKO" width="509" height="264" />
+  <img src="assets/unown.gif?v=7f156d6c" alt="Five floating Unown spelling MIRKO" width="509" height="264" />
 </p>
 
 # Hi, I'm Mirko 👋
@@ -17,7 +17,7 @@
 
 I study AI systems that observe, imitate or judge human behaviour. I specialise in language models and AI agents, and what they mean for mental health and human safety: how these systems can support people's wellbeing, and how they can put them at risk. I'm a member of [IPLab](https://iplab.dmi.unict.it/) and was recently a visiting researcher at [EPFL](https://www.epfl.ch/labs/mints/).
 
-<p align="center"><img src="assets/card-identity.svg" alt="Mirko Casu: AI researcher and clinical psychologist, PhD in Computer Science at the University of Catania" width="760" /></p>
+<p align="center"><img src="assets/card-identity.svg?v=7b89f38d" alt="Mirko Casu: AI researcher and clinical psychologist, PhD in Computer Science at the University of Catania" width="760" /></p>
 
 ## What I'm working on
 

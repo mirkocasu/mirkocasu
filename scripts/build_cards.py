@@ -12,8 +12,10 @@ Always writes assets/card-identity.svg. Options:
 Every image has a transparent background, so it works with GitHub's light and dark themes.
 """
 import argparse
+import hashlib
 import html
 import math
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -170,6 +172,18 @@ def identity(portrait):
 """
 
 
+def bust_cache():
+    """Point the README at assets/x?v=<content hash>: GitHub's CDN caches each URL for minutes."""
+    readme = ROOT / "README.md"
+    text = readme.read_text()
+
+    def repl(m):
+        digest = hashlib.sha256((ASSETS / m.group(1)).read_bytes()).hexdigest()[:8]
+        return f'src="assets/{m.group(1)}?v={digest}"'
+
+    readme.write_text(re.sub(r'src="assets/([\w.-]+)(?:\?v=\w+)?"', repl, text))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--portrait")
@@ -185,6 +199,7 @@ def main():
     if args.unown:
         unown_gif(args.unown, ASSETS / "unown.gif")
     (ASSETS / "card-identity.svg").write_text(identity(portrait))
+    bust_cache()
     print("wrote", ", ".join(sorted(p.name for p in ASSETS.iterdir() if p.suffix in {".svg", ".gif"})))
 
 
