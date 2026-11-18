@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="mirko@catania: whoami — Mirko Casu, AI researcher and licensed clinical psychologist" width="900" />
+  <img src="assets/banner.svg" alt="Five Unown spelling MIRKO — Mirko Casu, AI researcher and licensed clinical psychologist" width="900" />
 </p>
 
 # Hi, I'm Mirko 👋

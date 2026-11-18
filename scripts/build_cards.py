@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Build the SVG banner and cards for the GitHub profile README.
 
-Usage: python3 scripts/build_cards.py [path/to/portrait.(jpg|png|webp)]
-Writes assets/banner.svg and assets/card-*.svg. The portrait is optional:
-without it, the identity card keeps the ASCII portrait already in assets/portrait.txt.
+Usage: python3 scripts/build_cards.py [--portrait IMAGE] [--unown DIR]
+Writes assets/card-*.svg and, with --unown, assets/banner.svg.
+--portrait rebuilds the ASCII portrait cached in assets/portrait.txt.
+--unown points to a folder with the Unown GIFs 201-m/i/r/k/o.gif. The GIFs are
+not kept in this repo; without --unown the existing banner is left as it is.
 """
 import html
 import sys
@@ -59,56 +61,110 @@ def window(width, height, title, body):
 """
 
 
-def typed_line(x, y, text, cls, start, cps=28, size=13, idx=0):
-    """A line that types itself in once, using a discrete SMIL clip animation."""
-    # The clip starts at full width, so the text is visible where SMIL is not supported.
-    # The animation runs from t=0: width 0 until `start`, then one character per step.
-    n = len(text)
-    char_px = size * CHAR_W
-    typing = max(n / cps, 0.2)
-    total = start + typing
-    widths = [0.0] + [i * char_px for i in range(n + 1)]
-    times = [0.0] + [(start + typing * i / n) / total for i in range(n + 1)]
-    values = ";".join(f"{w:.1f}" for w in widths)
-    key_times = ";".join(f"{t:.4f}" for t in times)
-    full = (n + 1) * char_px
-    return f"""<clipPath id="c{idx}"><rect x="{x}" y="{y - size}" width="{full:.1f}" height="{size + 6}">
-  <animate attributeName="width" begin="0s" dur="{total:.2f}s" values="{values}" keyTimes="{key_times}" calcMode="discrete" fill="freeze"/>
-</rect></clipPath>
-<text x="{x}" y="{y}" class="{cls}" clip-path="url(#c{idx})">{esc(text)}</text>""", total
+def mix(c1, c2, t):
+    """Blend two #rrggbb colours: t=0 gives c1, t=1 gives c2."""
+    a = [int(c1[i:i + 2], 16) for i in (1, 3, 5)]
+    b = [int(c2[i:i + 2], 16) for i in (1, 3, 5)]
+    return "#" + "".join(f"{round(x + (y - x) * t):02x}" for x, y in zip(a, b))
 
 
-def banner():
-    W, H = 900, 240
-    lines = [
-        ("$ ", "whoami", None),
-        ("", "Mirko Casu · AI researcher · licensed clinical psychologist", "h"),
-        ("$ ", "cat focus.txt", None),
-        ("", "language models · AI agents · mental health · human safety", "t"),
-        ("$ ", "echo $HOME", None),
-        ("", "Catania, Sicily 🌋", "t"),
-    ]
-    parts, t, y, idx = [], 0.6, 62, 0
-    for prompt, text, cls in lines:
-        x = 28
-        if prompt:
-            parts.append(f'<text x="{x}" y="{y}" class="p">{prompt}</text>')
-            x += len(prompt) * 13 * CHAR_W
-            line, t = typed_line(x, y, text, "t", t, cps=14, idx=idx)
-        else:
-            size = 15 if cls == "h" else 13
-            line, t = typed_line(x, y, text, cls, t, cps=40, size=size, idx=idx)
-        parts.append(line)
-        idx += 1
-        t += 0.35
-        y += 24 if prompt else 30
-    # blinking cursor after the last line
-    parts.append(
-        f'<text x="28" y="{y}" class="p">$ </text>'
-        f'<rect x="{28 + 2 * 13 * CHAR_W:.1f}" y="{y - 12}" width="8" height="15" fill="{LAVA}">'
-        f'<animate attributeName="opacity" begin="{t:.2f}s" values="1;0" dur="1.1s" calcMode="discrete" repeatCount="indefinite"/></rect>'
+def gif_frames(path):
+    """Frames of a palette GIF as (pixel rows of palette indices, duration in ms)."""
+    from PIL import Image, ImageSequence
+
+    im = Image.open(path)
+    out = []
+    for f in ImageSequence.Iterator(im):
+        f = f.convert("P") if f.mode != "P" else f
+        w, h = f.size
+        px = f.load()
+        out.append(([[px[x, y] for x in range(w)] for y in range(h)], f.info.get("duration") or 100))
+    return out
+
+
+def pixel_rects(rows, colours, x0, y0):
+    """Horizontal runs of same-colour pixels as <rect>s; index 0 is transparent."""
+    out = []
+    for y, row in enumerate(rows):
+        x = 0
+        while x < len(row):
+            c = row[x]
+            run = 1
+            while x + run < len(row) and row[x + run] == c:
+                run += 1
+            if c in colours:
+                out.append(f'<rect x="{x - x0}" y="{y - y0}" width="{run}" height="1" fill="{colours[c]}"/>')
+            x += run
+    return "".join(out)
+
+
+def banner(unown_dir):
+    """Five floating Unown spelling MIRKO, each playing its own sprite animation."""
+    word = "mirko"
+    W, H = 900, 272
+    scale = 3
+    letter_colours = [BLUE, TEAL, "#7ee2b8", "#f6d365", LAVA]
+    letters = []
+    for ch in word:
+        frames = gif_frames(Path(unown_dir) / f"201-{ch}.gif")
+        xs = [x for rows, _ in frames for row in rows for x, c in enumerate(row) if c]
+        ys = [y for rows, _ in frames for y, row in enumerate(rows) if any(row)]
+        letters.append((frames, min(xs), min(ys), max(xs) - min(xs) + 1, max(ys) - min(ys) + 1))
+    gap = 40
+    total_w = sum(w for *_, w, _ in letters) * scale + gap * (len(word) - 1)
+    max_h = max(h for *_, h in letters) * scale
+    x = (W - total_w) / 2
+    top = 62
+    defs, body = [], []
+    for i, ((frames, x0, y0, w, h), col) in enumerate(zip(letters, letter_colours)):
+        colours = {1: col, 2: mix(col, BG, 0.45), 3: mix(col, TEXT, 0.35), 4: TEXT}
+        cycle = sum(d for _, d in frames) / 1000
+        frame_svg, t = [], 0.0
+        uniq = {}
+        for j, (rows, d) in enumerate(frames):
+            key = tuple(map(tuple, rows))
+            if key not in uniq:
+                uniq[key] = f"u{i}f{len(uniq)}"
+                defs.append(f'<g id="{uniq[key]}">{pixel_rects(rows, colours, x0, y0)}</g>')
+            s, e = t / cycle, (t + d / 1000) / cycle
+            t += d / 1000
+            if j == 0:
+                anim = f'values="inline;none" keyTimes="0;{e:.4f}"'
+            elif j == len(frames) - 1:
+                anim = f'values="none;inline" keyTimes="0;{s:.4f}"'
+            else:
+                anim = f'values="none;inline;none" keyTimes="0;{s:.4f};{e:.4f}"'
+            disp = "" if j == 0 else ' display="none"'
+            # the sprite animation starts once the letter has landed
+            frame_svg.append(
+                f'<use href="#{uniq[key]}"{disp}><animate attributeName="display" {anim} '
+                f'dur="{cycle:.2f}s" begin="{1.2 + 0.3 * i:.2f}s" calcMode="discrete" repeatCount="indefinite"/></use>'
+            )
+        lx = x
+        ly = top + (max_h - h * scale) / 2
+        delay = 0.25 * i
+        bob = 2.6 + 0.35 * i
+        body.append(
+            f'<ellipse cx="{lx + w * scale / 2:.1f}" cy="{top + max_h + 22}" rx="{w * scale * 0.38:.1f}" ry="4" fill="{col}" opacity="0.18">'
+            f'<animate attributeName="rx" values="{w * scale * 0.38:.1f};{w * scale * 0.28:.1f};{w * scale * 0.38:.1f}" dur="{bob:.2f}s" '
+            f'begin="{delay + 0.8:.2f}s" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" repeatCount="indefinite"/></ellipse>'
+            f'<g transform="translate({lx:.1f} {ly:.1f})">'
+            f'<g><animateTransform attributeName="transform" type="translate" values="0 -24;0 0" dur="0.7s" begin="{delay:.2f}s" '
+            f'calcMode="spline" keySplines="0.2 0.8 0.3 1" fill="freeze"/>'
+            f'<animate attributeName="opacity" values="0;1" dur="0.5s" begin="{delay:.2f}s" fill="freeze"/>'
+            f'<g><animateTransform attributeName="transform" type="translate" values="0 0;0 -8;0 0" dur="{bob:.2f}s" '
+            f'begin="{delay + 0.8:.2f}s" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" repeatCount="indefinite"/>'
+            f'<g transform="scale({scale})" shape-rendering="crispEdges">{"".join(frame_svg)}</g></g></g></g>'
+        )
+        x += w * scale + gap
+    ty = top + max_h + 64
+    body.append(f'<text x="{W / 2}" y="{ty}" text-anchor="middle" class="h" style="font-size:22px">Mirko Casu</text>')
+    body.append(
+        f'<text x="{W / 2}" y="{ty + 26}" text-anchor="middle" class="m">'
+        "AI researcher · licensed clinical psychologist · Catania, Sicily</text>"
     )
-    return window(W, H, "mirko@catania: ~", "\n".join(parts))
+    svg = window(W, H, "unown — mirko", "\n".join(body))
+    return svg.replace("</defs>", "".join(defs) + "\n</defs>", 1)
 
 
 def ascii_portrait(src):
@@ -217,14 +273,21 @@ CARDS = {
 
 
 def main():
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--portrait")
+    ap.add_argument("--unown")
+    args = ap.parse_args()
     ASSETS.mkdir(exist_ok=True)
     cache = ASSETS / "portrait.txt"
-    if len(sys.argv) > 1:
-        portrait = ascii_portrait(sys.argv[1])
+    if args.portrait:
+        portrait = ascii_portrait(args.portrait)
         cache.write_text("\n".join(portrait) + "\n")
     else:
         portrait = cache.read_text().splitlines()
-    (ASSETS / "banner.svg").write_text(banner())
+    if args.unown:
+        (ASSETS / "banner.svg").write_text(banner(args.unown))
     (ASSETS / "card-identity.svg").write_text(identity(portrait))
     for fname, (title, cmd, lines) in CARDS.items():
         (ASSETS / fname).write_text(project(title, cmd, lines))
