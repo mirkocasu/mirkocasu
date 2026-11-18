@@ -15,7 +15,7 @@
 
 I study AI systems that observe, imitate, or judge human behaviour, mainly language models and AI agents, and how they can help or harm mental health and safety. I'm a member of [IPLab](https://iplab.dmi.unict.it/) and was a visiting researcher at [EPFL](https://www.epfl.ch/labs/mints/).
 
-<p align="center"><img src="assets/card-identity-698aab66.svg" alt="ASCII portrait of Mirko Casu beside a list: AI researcher and licensed psychologist, PhD in Computer Science at the University of Catania, IPLab, visiting researcher at EPFL MINTS (2025–26), focus on LLMs and AI agents for mental health, based in Italy" width="760" /></p>
+<p align="center"><img src="assets/card-identity-711adc5b.svg" alt="ASCII portrait of Mirko Casu beside a list: AI researcher and licensed psychologist, PhD in Computer Science at the University of Catania, IPLab, visiting researcher at EPFL MINTS (2025–26), focus on LLMs and AI agents for mental health, based in Italy" width="760" /></p>
 
 ## Research
 

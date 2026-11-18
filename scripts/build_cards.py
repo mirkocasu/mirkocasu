@@ -109,10 +109,39 @@ def ascii_portrait(src, cols=80, rows=46, bg_level=17, gamma=0.6):
                 queue.append((a, b))
 
     ramp = " .:;+=xX$&"
-    return [
-        "".join(" " if bg[y][x] else ramp[max(1, min(9, im.getpixel((x, y)) * 10 // 256))] for x in range(cols)).rstrip()
+    grid = [
+        [" " if bg[y][x] else ramp[max(1, min(9, im.getpixel((x, y)) * 10 // 256))] for x in range(cols)]
         for y in range(rows)
     ]
+    drop_specks(grid)
+    lines = ["".join(r).rstrip() for r in grid]
+    while lines and not lines[-1]:
+        lines.pop()
+    return lines
+
+
+def drop_specks(grid, min_size=4):
+    """Blank out groups of fewer than min_size touching characters (8-neighbour), such as stray dots."""
+    rows, cols = len(grid), len(grid[0])
+    seen = [[False] * cols for _ in range(rows)]
+    for y in range(rows):
+        for x in range(cols):
+            if grid[y][x] == " " or seen[y][x]:
+                continue
+            group, stack = [], [(x, y)]
+            seen[y][x] = True
+            while stack:
+                cx, cy = stack.pop()
+                group.append((cx, cy))
+                for dy in (-1, 0, 1):
+                    for dx in (-1, 0, 1):
+                        a, b = cx + dx, cy + dy
+                        if 0 <= a < cols and 0 <= b < rows and not seen[b][a] and grid[b][a] != " ":
+                            seen[b][a] = True
+                            stack.append((a, b))
+            if len(group) < min_size:
+                for gx, gy in group:
+                    grid[gy][gx] = " "
 
 
 # Facts beside the portrait: (key, value, accent). Values are right-aligned after dot leaders.
