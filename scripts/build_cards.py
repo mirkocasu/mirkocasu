@@ -72,67 +72,121 @@ def sprite_banner(src, out, scale=3, vpad=80, hpad=40, outline=None):
 # ---------------------------------------------------------------- identity card
 
 
-def ascii_portrait(src):
+def ascii_portrait(src, cols=80, rows=46, bg_level=17, gamma=0.6):
+    """The photo as ASCII art on an empty background.
+
+    Gamma < 1 lifts the dark hair and clothes. Cells darker than bg_level that connect to the
+    edge of the crop are background and stay blank, so only the person is drawn.
+    """
+    from collections import deque
+
     from PIL import Image, ImageOps
 
     im = Image.open(src).convert("L")
     w, h = im.size
-    box = (int(w * 0.22), int(h * 0.06), int(w * 0.78), int(h * 0.80))
-    im = ImageOps.autocontrast(im.crop(box), cutoff=2)
-    cols, rows = 56, 36
-    im = im.resize((cols, rows))
-    ramp = " .:-=+*#%@"
+    top, bottom = 0.02, 0.98
+    height = (bottom - top) * h
+    width = min(w, height * cols / (rows * 2))  # a character cell is twice as tall as it is wide
+    left = (w - width) / 2
+    im = im.crop((int(left), int(top * h), int(left + width), int(bottom * h)))
+    raw = im.resize((cols, rows), Image.BOX)
+    im = ImageOps.autocontrast(im, cutoff=1).point(lambda v: int(255 * (v / 255) ** gamma))
+    im = im.resize((cols, rows), Image.LANCZOS)
+
+    dark = lambda x, y: raw.getpixel((x, y)) < bg_level
+    bg = [[False] * cols for _ in range(rows)]
+    queue = deque(
+        (x, y) for y in range(rows) for x in range(cols) if (x in (0, cols - 1) or y in (0, rows - 1)) and dark(x, y)
+    )
+    for x, y in queue:
+        bg[y][x] = True
+    while queue:
+        x, y = queue.popleft()
+        for a, b in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+            if 0 <= a < cols and 0 <= b < rows and not bg[b][a] and dark(a, b):
+                bg[b][a] = True
+                queue.append((a, b))
+
+    ramp = " .:;+=xX$&"
     return [
-        "".join(ramp[min(9, im.getpixel((x, y)) * 10 // 256)] for x in range(cols)).rstrip()
+        "".join(" " if bg[y][x] else ramp[max(1, min(9, im.getpixel((x, y)) * 10 // 256))] for x in range(cols)).rstrip()
         for y in range(rows)
     ]
 
 
+# Facts beside the portrait: (key, value, accent). Values are right-aligned after dot leaders.
+FACTS = [
+    ("Name", "Mirko Casu", False),
+    ("Role", "AI researcher · licensed psychologist", False),
+    ("PhD", "Computer Science · Univ. of Catania", False),
+    ("Lab", "IPLab", False),
+    ("Visiting", "EPFL MINTS · 2025–26", True),
+    ("Focus", "LLMs & AI agents → mental health", True),
+    ("Also", "deepfakes · synthetic media", False),
+    ("Cited.by", "UK Parliament POST · INTERPOL", True),
+    ("Open.Source", "datasets · challenges · apps", False),
+    ("Stack", "Python · PyTorch · Hugging Face · MLX · Claude", False),
+    ("Languages", "Italian · English · French", False),
+    ("Location", "Italy", False),
+    ("Off", "photography · gaming", False),
+]
+
+
 def identity(portrait):
-    """Portrait and key facts on a transparent background; text colours follow the theme."""
-    W, H = 760, 300
+    """Portrait beside a system-info list, on a transparent background; colours follow the theme."""
+    W = 760
+    a_size = 6.0  # portrait font size
+    a_lead = 2 * a_size * CHAR_W  # line height: square pixels for the portrait
+    size, lead = 12.5, 21  # facts font size and line height
+    n_chars = 60
+    fx = W - n_chars * size * CHAR_W - 4
+    top = 22
     parts = []
-    y = 20
+    # header: user@host and a rule to the right edge
+    head = "mirkocasu@github"
+    parts.append(f'<text x="{fx:.1f}" y="{top}" class="h">{head}</text>')
+    rule_x = fx + (len(head) + 1) * size * CHAR_W
+    parts.append(f'<line x1="{rule_x:.1f}" y1="{top - 4}" x2="{W - 4}" y2="{top - 4}" class="r"/>')
+    y = top + lead
+    for key, value, accent in FACTS:
+        label = f". {key}: "
+        dots = n_chars - len(label) - len(value) - 1
+        if dots < 2:
+            raise ValueError(f"{key}: value too long for {n_chars} columns")
+        parts.append(
+            f'<text x="{fx:.1f}" y="{y}"><tspan class="k">{esc(label)}</tspan><tspan class="d">{"." * dots} </tspan>'
+            f'<tspan class="{"v" if accent else "t"}">{esc(value)}</tspan></text>'
+        )
+        y += lead
+    H = max(y - lead + 12, top + len(portrait) * a_lead)
+    ay = (H - len(portrait) * a_lead) / 2 + a_size
+    py0 = ay - a_size
     for row in portrait:
-        parts.append(f'<text x="0" y="{y:.1f}" class="a">{esc(row)}</text>')
-        y += 7.6
-    x = 240
-    parts.append(f'<text x="{x}" y="40" class="h">Mirko Casu</text>')
-    rows = [
-        ("role", "AI researcher · clinical psychologist"),
-        ("phd", "Computer Science · Univ. of Catania"),
-        ("lab", "IPLab · visiting EPFL MINTS (2025–26)"),
-        ("focus", "LLMs & AI agents → mental health,"),
-        (None, "human safety, synthetic media"),
-        ("stack", "Python · PyTorch · Hugging Face · MLX · Claude"),
-        ("speaks", "Italian · English · French"),
-        ("off", "photography · gaming"),
-    ]
-    y = 84
-    vx = x + 8 * 14 * CHAR_W
-    for k, v in rows:
-        if k:
-            parts.append(f'<text x="{x}" y="{y}" class="k">{esc(k)}</text>')
-        parts.append(f'<text x="{vx:.1f}" y="{y}" class="{"t" if k else "m"}">{esc(v)}</text>')
-        y += 24
+        parts.append(f'<text x="8" y="{ay:.1f}" class="a">{esc(row)}</text>')
+        ay += a_lead
     body = "\n".join(parts)
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Mirko Casu">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H:.0f}" viewBox="0 0 {W} {H:.0f}" role="img" aria-label="Mirko Casu: AI researcher and licensed psychologist">
 <title>Mirko Casu</title>
 <defs>
-  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="{BLUE}"/><stop offset="55%" stop-color="{TEAL}"/><stop offset="100%" stop-color="{LAVA}"/>
+  <linearGradient id="g" gradientUnits="userSpaceOnUse" x1="0" y1="{py0:.0f}" x2="0" y2="{H:.0f}">
+    <stop offset="0%" stop-color="{BLUE}"/><stop offset="100%" stop-color="{TEAL}"/>
   </linearGradient>
 </defs>
 <style>
-  text {{ font-family: {FONT}; white-space: pre; }}
-  .t {{ fill: #1f2328; font-size: 14px; }}
-  .m {{ fill: #59636e; font-size: 14px; }}
-  .k {{ fill: {TEAL}; font-size: 14px; font-weight: 700; }}
-  .h {{ fill: url(#g); font-size: 22px; font-weight: 700; }}
-  .a {{ fill: url(#g); font-size: 6.4px; }}
+  text {{ font-family: {FONT}; white-space: pre; font-size: {size}px; }}
+  .a {{ fill: url(#g); font-size: {a_size}px; }}
+  .h {{ fill: {BLUE}; font-weight: 700; }}
+  .r {{ stroke: #d1d9e0; }}
+  .k {{ fill: #59636e; }}
+  .d {{ fill: #c4ccd4; }}
+  .t {{ fill: #1f2328; }}
+  .v {{ fill: {BLUE}; }}
   @media (prefers-color-scheme: dark) {{
+    .r {{ stroke: #3d444d; }}
+    .k {{ fill: #9198a1; }}
+    .d {{ fill: #3d444d; }}
     .t {{ fill: #e6edf3; }}
-    .m {{ fill: #9198a1; }}
+    .v {{ fill: #58a6ff; }}
   }}
 </style>
 {body}
