@@ -68,14 +68,15 @@ def _unown_frames(path, rgb, scale):
     return [(im.crop(box).resize(size, Image.NEAREST), d) for im, d in frames]
 
 
-def unown_gif(sprite_dir, out, scale=3, gap=30, bob=8, fps=20, loop=4.8):
+def unown_gif(sprite_dir, out, scale=3, gap=30, bob=8, fps=20, loop=4.8, vpad=80):
     """MIRKO in floating Unown: each letter bobs in a wave and plays its own sprite animation."""
     from PIL import Image
 
     letters = [_unown_frames(Path(sprite_dir) / f"201-{ch}.gif", rgb, scale) for ch, rgb in zip(UNOWN, UNOWN_RGB)]
     pad = 4
     W = sum(f[0][0].width for f in letters) + gap * (len(letters) - 1) + 2 * pad
-    H = max(f[0][0].height for f in letters) + bob + 2 * pad
+    # vpad: empty space above and below, so the banner breathes like a hero image
+    H = max(f[0][0].height for f in letters) + bob + 2 * vpad
     frames = []
     for k in range(int(loop * fps)):
         t = k / fps
@@ -91,7 +92,7 @@ def unown_gif(sprite_dir, out, scale=3, gap=30, bob=8, fps=20, loop=4.8):
                         break
                     acc += d
             dy = bob * (1 - math.cos(2 * math.pi * (t / (loop / 2) - i / len(letters)))) / 2
-            y = pad + (H - 2 * pad - bob - im.height) // 2 + round(bob - dy)
+            y = vpad + (H - 2 * vpad - bob - im.height) // 2 + round(bob - dy)
             canvas.alpha_composite(im, (x, y))
             x += im.width + gap
         frames.append(canvas)

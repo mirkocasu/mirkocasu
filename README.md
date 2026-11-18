@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/unown.gif" alt="Five floating Unown spelling MIRKO" width="509" />
+  <img src="assets/unown.gif" alt="Five floating Unown spelling MIRKO" width="509" height="264" />
 </p>
 
 # Hi, I'm Mirko 👋
