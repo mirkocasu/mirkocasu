@@ -29,7 +29,7 @@ A benchmark that tests deepfake detectors on synthetic videos of people.
 
 ### AI chatbots for mental health
 
-A scoping review of the evidence on AI chatbots for mental health.
+A scoping review of how well AI chatbots for mental health work, how feasible they are, and where they're used.
 
 <p align="center"><img src="assets/card-chatbots-e3a89bfa.svg" alt="AI chatbots for mental health: a scoping review of their effectiveness, feasibility and applications; cited by the UK Parliament POST, POSTnote 737; Applied Sciences, 2024" width="760" /></p>
 
@@ -37,7 +37,7 @@ A scoping review of the evidence on AI chatbots for mental health.
 
 ### Deepfake forensics
 
-Why people and detectors mistake synthetic media for real, and the benchmarks and challenges that test them.
+Why people and detectors mistake synthetic media for real. I also help run a workshop and a challenge on the topic.
 
 <p align="center"><img src="assets/card-deepfakes-4fb8d92c.svg" alt="Deepfake forensics: GenAI Mirage, the impostor bias in deepfake detection (FSIDI 2024), mentioned by INTERPOL; co-chair of the DFF '25 workshop at ACM Multimedia; dataset committee of the AADD-2025 challenge" width="760" /></p>
 
@@ -47,10 +47,10 @@ I also work on [on-device autism screening from children's gaze](https://doi.org
 
 ## How I work
 
-- Psychology shapes my questions: I measure what AI systems do to people, not only how they score.
-- Claims need evidence, so I use benchmarks, scoping reviews, and studies with participants.
+- As a psychologist, I study how AI systems affect the people who use them, alongside their benchmark scores.
+- My evidence comes from benchmarks, scoping reviews, and studies with participants.
 - I distil and quantise models so that they run offline on a phone or a laptop.
-- Datasets, challenges, and apps go public whenever possible.
+- I release datasets, challenges, and apps publicly, such as the AADD-2025 challenge and the autism screening app.
 - Off work: photography and video games.
 
 ## Connect
