@@ -61,4 +61,5 @@ I also work on [on-device autism screening from children's gaze](https://doi.org
 [![LinkedIn](https://img.shields.io/badge/m1rkocasu-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/m1rkocasu)
 [![Hugging Face](https://img.shields.io/badge/m1rkocasu-FFD21E?style=flat-square&logo=huggingface&logoColor=black)](https://huggingface.co/m1rkocasu)
 
-Email: mirko.casu [AT] live.it
+Email: mirko.casu [AT] live.it<br>
+University email: mirko.casu [AT] phd.unict.it
